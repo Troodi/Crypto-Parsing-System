@@ -6,5 +6,5 @@
  * Роут для вызова апи
  */
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('test', '\App\Http\Controllers\Api\NewsController@getNews');
+    $router->get('news', '\App\Http\Controllers\Api\NewsController@getNews');
 });
