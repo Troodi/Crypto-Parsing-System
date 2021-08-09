@@ -19,9 +19,7 @@ class ParseJob extends Job
     }
 
     /**
-     * Execute the job.
-     *
-     * @return void
+     * Метод запускает парсинг новостей
      */
     public function handle(ParsingService $parsingService, TagsRepository $tagsRepository, NewsRepository $newsRepository, SourceRepository $sourceRepository)
     {

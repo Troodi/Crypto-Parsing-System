@@ -10,6 +10,9 @@ class GroupNewsRequest
 
     }
 
+    /*
+     * Метод валидирует поля для группировки
+     */
     public function validated($object, $request){
         $object->validate($request, [
             'groupBy' => ['regex:/(source|tag|date)/u'],

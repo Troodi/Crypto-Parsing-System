@@ -16,6 +16,9 @@ class ParsingService implements ParsingServiceInterface
         $this->link = str_replace('{apiKey}', config('custom.news_api_key'), $this->link);
     }
 
+    /*
+     * Метод парсит новости и сохраняет их в базу данных
+     */
     public function parseAndSaveNews(TagsRepository $tagsRepository, NewsRepository $newsRepository, SourceRepository $sourceRepository) : bool {
         foreach($tagsRepository->all() as $tag){
             $uri = str_replace('{query}', $tag->tag, $this->link);

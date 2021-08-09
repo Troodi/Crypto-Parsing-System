@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
+    /*
+     * Метод выводит новости
+     */
     public function getNews(GroupNewsRequest $groupNewsRequest, Request $request, NewsService $newsService, NewsRepository $newsRepository, ApiService $apiService, TagsRepository $tagsRepository, SourceRepository $sourceRepository){
         $groupNewsRequest->validated($this, $request);
         return $newsService->getNews($request?->groupBy, $newsRepository, $apiService, $tagsRepository, $sourceRepository);

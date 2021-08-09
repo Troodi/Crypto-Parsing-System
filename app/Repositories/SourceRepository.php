@@ -11,6 +11,9 @@ class SourceRepository extends CoreRepository implements SourcesRepositoryInterf
         return Model::class;
     }
 
+    /*
+     * Метод создает или обновляет запись
+     */
     public function createOrUpdate($array): mixed
     {
         $sources = $array['articles'][0]['source'];
@@ -21,6 +24,9 @@ class SourceRepository extends CoreRepository implements SourcesRepositoryInterf
         return $this->query()->updateOrCreate($sourcesArray);
     }
 
+    /*
+     * Метод возвращает имя источника по его идентификатору
+     */
     public function getNameById($id): string {
         $source = $this->query()->all()->where('id', $id)->first()?->name;
         return $source ? $source : '';

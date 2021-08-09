@@ -1,24 +1,47 @@
-# Lumen PHP Framework
+# Парсинг новостей
+В данном проекте используется Lumen 8 с использованием IoC. Данный подход подразумевает гибкость и чистоту кода.
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+## Структура проекта
+Здесь указаны основные моменты не существующие изначально при создании приложения Lumen.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+```App\Http\Controllers\Api\NewsController.php``` - основной контроллер для выдачи данных
 
-## Official Documentation
+```App\Http\Requests\News\GroupNewsRequest.php``` - файл валидации группировки
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+```App\Http\Repositories\Interfaces``` - интерфейсы для репозиториев
 
-## Contributing
+```App\Http\Repositories``` - репозитории: работа с базой данных. Получение, запись данных в базу данных
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```App\Http\Repositories\NewsRepository.php``` - методы для работы с моделью новостей
 
-## Security Vulnerabilities
+```App\Http\Repositories\SourceRepository.php``` - методы для работы с моделью источников
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```App\Http\Repositories\TagsRepository.php``` - методы для работы с моделью тегов
 
-## License
+```App\Http\Services\Interfaces``` - интерфейсы для сервисов
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```App\Http\Services``` - сервисы: логика работы и обращения к репозиториям
+
+```App\Http\Services\NewsService.php``` - сервис для работы с новостями
+
+```App\Http\Services\ParsingService.php``` - сервис для работы с парсингом
+
+```App\Providers\IocServiceProvider.php``` - сервис провайдер для подключения сервисов
+
+```App\Providers\RepositoryServiceProvider.php``` - сервис провайдер для подключения репозиториев
+
+```App\Jobs\ParseJob.php``` - задача для парсинга новостей
+
+```routes\api.php``` - роут для апи
+
+
+## Запуск проекта
+Заполните данными конфигурационный файл, выполните миграцию, а затем выполните команду ```php artisan db:seed --class=TagsSeed```
+
+Для вызова вывода новостей откройте url:  ```/api/test```
+
+Для старта парсинга используйте команду: ```php artisan schedule:run```
+
+Для группировки используйте параметр ```groupBy``` со значениями: ```tag``` или ```sourсe``` или ```date``` 
+
+Пример url с группировкой ```/api/test?groupBy=tag```

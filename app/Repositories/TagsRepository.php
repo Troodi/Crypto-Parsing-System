@@ -10,10 +10,16 @@ class TagsRepository extends CoreRepository implements TagsRepositoryInterface
         return Model::class;
     }
 
+    /*
+     * Метод возвращает все записи
+     */
     public function all() :mixed {
         return $this->query()->all();
     }
 
+    /*
+     * Метод возвращает имя тега по его идентификатору
+     */
     public function getNameById($id): string {
         $tag = $this->query()->all()->where('id', $id)->first()?->tag;
         return $tag ? $tag : '';
